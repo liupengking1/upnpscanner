@@ -173,6 +173,7 @@ public class Home extends ActionBarActivity implements
 			// ARG_SECTION_NUMBER)));
 			current_section = getArguments().getInt(ARG_SECTION_NUMBER);
 			scanNetwork();
+			listAdapter.clear();
 
 			final ListView listview = (ListView) rootView
 					.findViewById(R.id.listView1);
@@ -223,7 +224,8 @@ public class Home extends ActionBarActivity implements
 			upnpService.getRegistry().addListener(registryListener);
 
 			// Now add all devices to the list we already know about
-			for (Device<?, ?, ?> device : upnpService.getRegistry().getDevices()) {
+			for (Device<?, ?, ?> device : upnpService.getRegistry()
+					.getDevices()) {
 				registryListener.deviceAdded(device);
 			}
 
@@ -243,36 +245,56 @@ public class Home extends ActionBarActivity implements
 		public void remoteDeviceDiscoveryStarted(Registry registry,
 				RemoteDevice device) {
 			deviceAdded(device);
-			if(device.getDetails().getFriendlyName().contains("Fire TV")){
-				System.out.println("Fire TV device:"+device.getDetails().getFriendlyName());
-//				System.out.println("Fire TV device:"+device.getDetails().getBaseURL().toString());
-				System.out.println("Fire TV device:"+device.getDetails().getManufacturerDetails().getManufacturer());
-				System.out.println("Fire TV device:"+device.getType().toString());
-				System.out.println("Fire TV device:"+device.getVersion().getMajor());
+			if (device.getType().toString()
+					.equals("urn:dial-multiscreen-org:device:dial:1")) {
+				System.out.println("remote device:"
+						+ device.getDetails().getFriendlyName());
+				// System.out.println("remote device:"
+				// + device.getDetails().getManufacturerDetails()
+				// .getManufacturer());
+				// System.out.println("remote device:"
+				// + device.getType().toString());
+				// System.out.println("remote device:"
+				// + device.getVersion().getMajor() + ","
+				// + device.getVersion().getMinor());
+				System.out.println("remote device:"
+						+ device.getDIALApplicationURL().toString());
 			}
 		}
 
 		@Override
 		public void remoteDeviceDiscoveryFailed(Registry registry,
 				final RemoteDevice device, final Exception ex) {
-			System.out.println("remote device:"+device.getDetails().getFriendlyName());
-			System.out.println("remote device:"+device.getDetails().getBaseURL().toString());
-			System.out.println("remote device:"+device.getDetails().getManufacturerDetails().getManufacturer());
-			System.out.println("remote device:"+device.getType().toString());
-			System.out.println("remote device:"+device.getVersion().getMajor()+","+device.getVersion().getMinor());
-			runOnUiThread(new Runnable() {
-				public void run() {
-					Toast.makeText(
-							Home.this,
-							"Discovery failed of '"
-									+ device.getDisplayString()
-									+ "': "
-									+ (ex != null ? ex.toString()
-											: "Couldn't retrieve device/service descriptors"),
-							Toast.LENGTH_LONG).show();
-				}
-			});
-			deviceRemoved(device);
+			if (device.getType().toString()
+					.equals("urn:dial-multiscreen-org:device:dial:1")) {
+				deviceAdded(device);
+				System.out.println("remote device:"
+						+ device.getDetails().getFriendlyName());
+				// System.out.println("remote device:"
+				// + device.getDetails().getManufacturerDetails()
+				// .getManufacturer());
+				// System.out.println("remote device:"
+				// + device.getType().toString());
+				// System.out.println("remote device:"
+				// + device.getVersion().getMajor() + ","
+				// + device.getVersion().getMinor());
+				System.out.println("remote device:"
+						+ device.getDIALApplicationURL().toString());
+			} else {
+				runOnUiThread(new Runnable() {
+					public void run() {
+						Toast.makeText(
+								Home.this,
+								"Discovery failed of '"
+										+ device.getDisplayString()
+										+ "': "
+										+ (ex != null ? ex.toString()
+												: "Couldn't retrieve device/service descriptors"),
+								Toast.LENGTH_LONG).show();
+					}
+				});
+				deviceRemoved(device);
+			}
 		}
 
 		/*
@@ -333,6 +355,11 @@ public class Home extends ActionBarActivity implements
 								.isFullyHydrated())) {
 							return;
 						}
+					} else if (current_section == 5) {
+						if (!(device.getType().toString()
+								.contains("urn:dial-multiscreen-org:device:dial:1"))) {
+							return;
+						}
 					}
 					if (position >= 0) {
 						// Device already in the list, re-set new value at same
@@ -376,6 +403,12 @@ public class Home extends ActionBarActivity implements
 				for (Service<?, ?> service : getDevice().getServices()) {
 					sb.append(service.getServiceType()).append("\n");
 				}
+			} else if (device.getType().toString()
+					.equals("urn:dial-multiscreen-org:device:dial:1")) {
+				sb.append(getDevice().getDisplayString());
+				sb.append("\n\n");
+				sb.append(((RemoteDevice) device).getDIALApplicationURL()
+						.toString());
 			} else {
 				sb.append(getString(R.string.deviceDetailsNotYetAvailable));
 			}

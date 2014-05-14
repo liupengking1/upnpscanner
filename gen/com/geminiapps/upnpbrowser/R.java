@@ -1299,7 +1299,7 @@ containing a value of this type.
         public static final int home=0x7f0c0001;
     }
     public static final class string {
-        public static final int OK=0x7f0a001b;
+        public static final int OK=0x7f0a001c;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f0a0001;
@@ -1340,29 +1340,30 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
-        public static final int action_example=0x7f0a0014;
-        public static final int action_settings=0x7f0a0015;
+        public static final int action_example=0x7f0a0015;
+        public static final int action_settings=0x7f0a0016;
         /**  for cling library 
          */
-        public static final int appName=0x7f0a0016;
+        public static final int appName=0x7f0a0017;
         public static final int app_name=0x7f0a000d;
-        public static final int deviceDetails=0x7f0a0017;
-        public static final int deviceDetailsNotYetAvailable=0x7f0a0022;
-        public static final int disablingDebugLogging=0x7f0a0021;
-        public static final int disablingRouter=0x7f0a001e;
-        public static final int enablingDebugLogging=0x7f0a0020;
-        public static final int enablingRouter=0x7f0a001d;
-        public static final int errorSwitchingRouter=0x7f0a001f;
-        public static final int navigation_drawer_close=0x7f0a0013;
-        public static final int navigation_drawer_open=0x7f0a0012;
-        public static final int searchLAN=0x7f0a0018;
-        public static final int searchingLAN=0x7f0a001c;
-        public static final int switchRouter=0x7f0a0019;
+        public static final int deviceDetails=0x7f0a0018;
+        public static final int deviceDetailsNotYetAvailable=0x7f0a0023;
+        public static final int disablingDebugLogging=0x7f0a0022;
+        public static final int disablingRouter=0x7f0a001f;
+        public static final int enablingDebugLogging=0x7f0a0021;
+        public static final int enablingRouter=0x7f0a001e;
+        public static final int errorSwitchingRouter=0x7f0a0020;
+        public static final int navigation_drawer_close=0x7f0a0014;
+        public static final int navigation_drawer_open=0x7f0a0013;
+        public static final int searchLAN=0x7f0a0019;
+        public static final int searchingLAN=0x7f0a001d;
+        public static final int switchRouter=0x7f0a001a;
         public static final int title_section1=0x7f0a000e;
         public static final int title_section2=0x7f0a000f;
         public static final int title_section3=0x7f0a0010;
         public static final int title_section4=0x7f0a0011;
-        public static final int toggleDebugLogging=0x7f0a001a;
+        public static final int title_section5=0x7f0a0012;
+        public static final int toggleDebugLogging=0x7f0a001b;
     }
     public static final class style {
         /** 
