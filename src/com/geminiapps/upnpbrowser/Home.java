@@ -9,20 +9,27 @@ import org.fourthline.cling.model.meta.Service;
 import org.fourthline.cling.registry.DefaultRegistryListener;
 import org.fourthline.cling.registry.Registry;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +37,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,10 +58,51 @@ public class Home extends ActionBarActivity implements
 	private CharSequence mTitle;
 	private static int current_section = 0;
 
+	// for ad
+	private AdView adView;
+	/* Your ad unit id. Replace with your actual ad unit id. */
+	private static final String AD_UNIT_ID = "ca-app-pub-9576274567421261/2281815633";
+
+	
+
+	private void openRatingPage() {
+		Uri uri = Uri.parse("market://details?id="
+				+ getApplicationContext().getPackageName());
+		Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+		try {
+			startActivity(goToMarket);
+		} catch (ActivityNotFoundException e) {
+			Toast.makeText(getApplicationContext(),
+					"Couldn't launch the market", Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
+		// Create an ad.
+		adView = new AdView(this);
+		adView.setAdSize(AdSize.BANNER);
+		adView.setAdUnitId(AD_UNIT_ID);
+
+		// Add the AdView to the view hierarchy. The view will have no size
+		// until the ad is loaded.
+		LinearLayout layout = (LinearLayout) findViewById(R.id.ad);
+		layout.addView(adView);
+
+		// Create an ad request. Check logcat output for the hashed device ID to
+		// get test ads on a physical device.
+		AdRequest adRequest = new AdRequest.Builder()
+				.addTestDevice(AdRequest.DEVICE_ID_EMULATOR) // 所有模拟器
+				.addTestDevice("1D93C8FC4113388A66A6936BE2F7EE67") // 我的Galaxy
+																	// Nexus测试手机
+				.build();
+
+		// Start loading the ad in the background.
+		adView.loadAd(adRequest);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
@@ -133,6 +182,7 @@ public class Home extends ActionBarActivity implements
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			openRatingPage();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -249,14 +299,6 @@ public class Home extends ActionBarActivity implements
 					.equals("urn:dial-multiscreen-org:device:dial:1")) {
 				System.out.println("remote device:"
 						+ device.getDetails().getFriendlyName());
-				// System.out.println("remote device:"
-				// + device.getDetails().getManufacturerDetails()
-				// .getManufacturer());
-				// System.out.println("remote device:"
-				// + device.getType().toString());
-				// System.out.println("remote device:"
-				// + device.getVersion().getMajor() + ","
-				// + device.getVersion().getMinor());
 				System.out.println("remote device:"
 						+ device.getDIALApplicationURL().toString());
 			}
@@ -270,14 +312,6 @@ public class Home extends ActionBarActivity implements
 				deviceAdded(device);
 				System.out.println("remote device:"
 						+ device.getDetails().getFriendlyName());
-				// System.out.println("remote device:"
-				// + device.getDetails().getManufacturerDetails()
-				// .getManufacturer());
-				// System.out.println("remote device:"
-				// + device.getType().toString());
-				// System.out.println("remote device:"
-				// + device.getVersion().getMajor() + ","
-				// + device.getVersion().getMinor());
 				System.out.println("remote device:"
 						+ device.getDIALApplicationURL().toString());
 			} else {

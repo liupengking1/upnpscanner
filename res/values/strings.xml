@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">UPnP Browser</string>
+    <string name="app_name">UPnP Scanner</string>
     <string name="title_section1">All UPnP Devices</string>
     <string name="title_section2">Router</string>
     <string name="title_section3">Media Server</string>
@@ -10,7 +10,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Scan Network</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Rate me</string>
 
     <!-- for cling library -->
     <string name="appName">Cling Browser</string>
