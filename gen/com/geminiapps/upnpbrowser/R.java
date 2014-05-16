@@ -945,6 +945,12 @@ containing a value of this type.
         public static final int abc_config_allowActionMenuItemTextWithIcon=0x7f090004;
         public static final int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f090003;
         public static final int abc_split_action_bar_is_narrow=0x7f090002;
+        /**  Enable automatic activity tracking 
+         */
+        public static final int ga_autoActivityTracking=0x7f090006;
+        /**  Enable automatic exception tracking 
+         */
+        public static final int ga_reportUncaughtExceptions=0x7f090007;
     }
     public static final class color {
         public static final int abc_search_url_text_holo=0x7f05000d;
@@ -1323,7 +1329,7 @@ containing a value of this type.
         public static final int home=0x7f0c0001;
     }
     public static final class string {
-        public static final int OK=0x7f070036;
+        public static final int OK=0x7f070037;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f07001b;
@@ -1364,12 +1370,12 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f070025;
-        public static final int action_example=0x7f07002f;
-        public static final int action_settings=0x7f070030;
+        public static final int action_example=0x7f070030;
+        public static final int action_settings=0x7f070031;
         /**  for cling library 
          */
-        public static final int appName=0x7f070031;
-        public static final int app_name=0x7f070027;
+        public static final int appName=0x7f070032;
+        public static final int app_name=0x7f070028;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -1464,24 +1470,27 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f070013;
-        public static final int deviceDetails=0x7f070032;
-        public static final int deviceDetailsNotYetAvailable=0x7f07003d;
-        public static final int disablingDebugLogging=0x7f07003c;
-        public static final int disablingRouter=0x7f070039;
-        public static final int enablingDebugLogging=0x7f07003b;
-        public static final int enablingRouter=0x7f070038;
-        public static final int errorSwitchingRouter=0x7f07003a;
-        public static final int navigation_drawer_close=0x7f07002e;
-        public static final int navigation_drawer_open=0x7f07002d;
-        public static final int searchLAN=0x7f070033;
-        public static final int searchingLAN=0x7f070037;
-        public static final int switchRouter=0x7f070034;
-        public static final int title_section1=0x7f070028;
-        public static final int title_section2=0x7f070029;
-        public static final int title_section3=0x7f07002a;
-        public static final int title_section4=0x7f07002b;
-        public static final int title_section5=0x7f07002c;
-        public static final int toggleDebugLogging=0x7f070035;
+        public static final int deviceDetails=0x7f070033;
+        public static final int deviceDetailsNotYetAvailable=0x7f07003e;
+        public static final int disablingDebugLogging=0x7f07003d;
+        public static final int disablingRouter=0x7f07003a;
+        public static final int enablingDebugLogging=0x7f07003c;
+        public static final int enablingRouter=0x7f070039;
+        public static final int errorSwitchingRouter=0x7f07003b;
+        /**  Replace placeholder ID with your tracking ID 
+         */
+        public static final int ga_trackingId=0x7f070027;
+        public static final int navigation_drawer_close=0x7f07002f;
+        public static final int navigation_drawer_open=0x7f07002e;
+        public static final int searchLAN=0x7f070034;
+        public static final int searchingLAN=0x7f070038;
+        public static final int switchRouter=0x7f070035;
+        public static final int title_section1=0x7f070029;
+        public static final int title_section2=0x7f07002a;
+        public static final int title_section3=0x7f07002b;
+        public static final int title_section4=0x7f07002c;
+        public static final int title_section5=0x7f07002d;
+        public static final int toggleDebugLogging=0x7f070036;
     }
     public static final class style {
         /** 
