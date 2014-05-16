@@ -9,6 +9,7 @@ import org.fourthline.cling.model.meta.Service;
 import org.fourthline.cling.registry.DefaultRegistryListener;
 import org.fourthline.cling.registry.Registry;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -29,7 +30,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +63,28 @@ public class Home extends ActionBarActivity implements
 	/* Your ad unit id. Replace with your actual ad unit id. */
 	private static final String AD_UNIT_ID = "ca-app-pub-9576274567421261/2281815633";
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+
+	}
 	
+	@Override
+	public void onStop() {
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this); // Add this method.
+	}
+	
+	@Override
+	public void onDestroy() {
+		// Destroy the AdView.
+		if (adView != null) {
+			adView.destroy();
+		}
+		super.onDestroy();
+		System.out.println("Home activity destroyed");
+	}
 
 	private void openRatingPage() {
 		Uri uri = Uri.parse("market://details?id="
