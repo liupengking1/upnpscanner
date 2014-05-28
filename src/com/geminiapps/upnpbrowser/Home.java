@@ -69,13 +69,13 @@ public class Home extends ActionBarActivity implements
 		EasyTracker.getInstance(this).activityStart(this);
 
 	}
-	
+
 	@Override
 	public void onStop() {
 		super.onStop();
 		EasyTracker.getInstance(this).activityStop(this); // Add this method.
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		// Destroy the AdView.
@@ -97,8 +97,7 @@ public class Home extends ActionBarActivity implements
 					"Couldn't launch the market", Toast.LENGTH_LONG).show();
 		}
 	}
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -454,10 +453,19 @@ public class Home extends ActionBarActivity implements
 			StringBuilder sb = new StringBuilder();
 			if (getDevice().isFullyHydrated()) {
 				sb.append(getDevice().getDisplayString());
-				sb.append("\n\n");
+				sb.append("\n\nFriendly name: \n");
+				sb.append(getDevice().getDetails().getFriendlyName());
+				sb.append("\n\nDevice type: \n");
+				sb.append(getDevice().getType().toString());
+				sb.append("\n\nBaseURL: \n");
+				sb.append(getDevice().getDetails().getBaseURL());
+				sb.append("\n\nPresentationURL: \n");
+				sb.append(getDevice().getDetails().getPresentationURI());
+				sb.append("\n\nServices: \n");
 				for (Service<?, ?> service : getDevice().getServices()) {
 					sb.append(service.getServiceType()).append("\n");
 				}
+
 			} else if (device.getType().toString()
 					.equals("urn:dial-multiscreen-org:device:dial:1")) {
 				sb.append(getDevice().getDisplayString());
@@ -495,7 +503,11 @@ public class Home extends ActionBarActivity implements
 					.getDisplayString();
 			// Display a little star while the device is being loaded (see
 			// performance optimization earlier)
-			return device.isFullyHydrated() ? name : name + " *";
+			if (!device.getType().toString()
+					.contains("urn:dial-multiscreen-org:device:dial:1"))
+				return device.isFullyHydrated() ? name : name + " *";
+			else
+				return name;
 		}
 	}
 
