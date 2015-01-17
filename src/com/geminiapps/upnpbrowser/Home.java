@@ -1,13 +1,26 @@
 package com.geminiapps.upnpbrowser;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.fourthline.cling.android.AndroidUpnpService;
 import org.fourthline.cling.android.AndroidUpnpServiceImpl;
+import org.fourthline.cling.controlpoint.ControlPoint;
+import org.fourthline.cling.model.action.ActionArgumentValue;
+import org.fourthline.cling.model.action.ActionInvocation;
+import org.fourthline.cling.model.message.UpnpResponse;
 import org.fourthline.cling.model.meta.Device;
 import org.fourthline.cling.model.meta.LocalDevice;
 import org.fourthline.cling.model.meta.RemoteDevice;
 import org.fourthline.cling.model.meta.Service;
+import org.fourthline.cling.model.types.ServiceId;
+import org.fourthline.cling.model.types.ServiceType;
+import org.fourthline.cling.model.types.UDAServiceId;
+import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
 import org.fourthline.cling.registry.DefaultRegistryListener;
 import org.fourthline.cling.registry.Registry;
+import org.fourthline.cling.support.avtransport.callback.GetPositionInfo;
+import org.fourthline.cling.support.model.PositionInfo;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.ads.AdRequest;
@@ -137,7 +150,7 @@ public class Home extends ActionBarActivity implements
 		org.seamless.util.logging.LoggingUtil
 				.resetRootHandler(new FixedAndroidLogHandler());
 		// Now you can enable logging as needed for various categories of Cling:
-		// Logger.getLogger("org.fourthline.cling").setLevel(Level.FINEST);
+		Logger.getLogger("org.fourthline.cling").setLevel(Level.FINEST);
 
 		listAdapter = new ArrayAdapter<DeviceDisplay>(this,
 				android.R.layout.simple_list_item_1);
@@ -258,6 +271,8 @@ public class Home extends ActionBarActivity implements
 					dialog.setTitle(R.string.deviceDetails);
 					DeviceDisplay deviceDisplay = (DeviceDisplay) listview
 							.getItemAtPosition(position);
+
+					getPosition(deviceDisplay.device);
 					dialog.setMessage(deviceDisplay.getDetailsMessage());
 					dialog.show();
 					TextView textView = (TextView) dialog
@@ -517,4 +532,60 @@ public class Home extends ActionBarActivity implements
 			upnpService.getControlPoint().search();
 		}
 	}
+	
+    public static void getPosition(Device device) {
+        ControlPoint cp = upnpService.getControlPoint();
+        ServiceId serviceId = new UDAServiceId("AVTransport");
+        Service m_avtransportService = null;
+        System.out.println("called get position");
+        if (device.getType().toString().contains(":2")) {
+            System.out.println("this is a version2 device");
+            m_avtransportService = device.findService(new ServiceType("schemas-upnp-org", "AVTransport", 2));
+        }
+        if (m_avtransportService == null) {
+        	System.out.println("this is a version2 device, but only found serviceid");
+            m_avtransportService = device.findService(serviceId);
+        }
+        if (m_avtransportService == null) {
+        	System.out.println("this is a version2 device, but only found service type1");
+            m_avtransportService = device.findService(new ServiceType("schemas-upnp-org", "AVTransport"));
+        }
+
+        if (m_avtransportService == null) {
+            System.out.println("service is null");
+            return;
+        }
+
+        GetPositionInfo getPositionInfo = new GetPositionInfo(m_avtransportService) {
+
+			public void received(ActionInvocation arg0, PositionInfo arg1) {
+				// TODO Auto-generated method stub
+				 System.out.println("received position info"+ (arg1==null?"isNull":arg1.getRelTime()));
+			}
+
+
+			public void failure(ActionInvocation arg0, UpnpResponse arg1,
+					String arg2) {
+				// TODO Auto-generated method stub
+				System.out.println("failed receiving position");
+			}
+			/*
+			public void success(ActionInvocation invocation) {
+		        System.out.println("get positioninfo success.+"+invocation.getOutputMap().get("RelTime"));
+		        System.out.println(((UnsignedIntegerFourBytes) ((ActionArgumentValue)invocation.getOutputMap().get("Track")).getValue()).getValue());
+		        System.out.println(        (String) ((ActionArgumentValue)invocation.getOutputMap().get("TrackDuration")).getValue());
+		        System.out.println(        (String) ((ActionArgumentValue)invocation.getOutputMap().get("TrackMetaData")).getValue()==null?"":((ActionArgumentValue)invocation.getOutputMap().get("TrackMetaData")).getValue());
+		        System.out.println(                (String) ((ActionArgumentValue)invocation.getOutputMap().get("TrackURI")).getValue()==null?"":((ActionArgumentValue)invocation.getOutputMap().get("TrackURI")).getValue());
+		        System.out.println(         (String) ((ActionArgumentValue)invocation.getOutputMap().get("RelTime")).getValue());
+		        System.out.println(         (String) ((ActionArgumentValue)invocation.getOutputMap().get("AbsTime")).getValue());
+		        System.out.println(         (Integer) ((ActionArgumentValue)invocation.getOutputMap().get("RelCount")).getValue());
+		        System.out.println(         (Integer) ((ActionArgumentValue)invocation.getOutputMap().get("AbsCount")).getValue());
+		        		
+		        PositionInfo positionInfo =new PositionInfo(invocation.getInputMap());
+		        System.out.println("get positioninfo:"+positionInfo.toString());
+			}
+		*/
+        };
+        cp.execute(getPositionInfo);
+    }
 }
