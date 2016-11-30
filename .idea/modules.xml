@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../appcompat_v7/appcompat_v7.iml" filepath="$PROJECT_DIR$/../appcompat_v7/appcompat_v7.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../latest_git/airplay_streamer/AirwormAudio/Streambels/streambels_public/google_play_services/libproject/google-play-services_lib/google-play-services_lib.iml" filepath="$PROJECT_DIR$/../latest_git/airplay_streamer/AirwormAudio/Streambels/streambels_public/google_play_services/libproject/google-play-services_lib/google-play-services_lib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/upnpbrowser.iml" filepath="$PROJECT_DIR$/.idea/upnpbrowser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/upnpbrowser.iml" filepath="$PROJECT_DIR$/upnpbrowser.iml" />
     </modules>
   </component>
 </project>
-

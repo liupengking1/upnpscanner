@@ -1,2 +1,0 @@
-# upnpscanner
-UPnP device scanner

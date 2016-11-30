@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">UPnP Scanner</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_scan_network">Scan Network</string>
+
+    <string name="registeringDevice">Registering UPnP Dummy device…</string>
+    <string name="createDeviceFailed">Creating of Dummy device failed, check the log!</string>
+    <string name="deviceDetailsNotYetAvailable">Device details are being discovered, please wait.</string>
+    <string name="deviceDetails">Device Details</string>
+</resources>

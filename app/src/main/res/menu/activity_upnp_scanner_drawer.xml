@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/filter_all"
+            android:title="All" />
+        <item
+            android:id="@+id/filter_router"
+            android:title="Router" />
+        <item
+            android:id="@+id/filter_media_server"
+            android:title="Media Server" />
+        <item
+            android:id="@+id/filter_media_renderer"
+            android:title="Media Renderer" />
+        <item
+            android:id="@+id/filter_dial"
+            android:title="DIAL Device" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/ic_menu_rateme"
+                android:title="Rate us" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Feedback" />
+        </menu>
+    </item>
+
+</menu>
